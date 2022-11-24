@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Res, Param, Put } from '@nestjs/common';
 import { Response } from 'express';
 import { AppService } from './app.service';
-import { PaymentDto } from './payment.dto';
+import { AccountDto } from './dtos/account.dto';
 
 @Controller('/api/v1/stripe')
 export class AppController {
@@ -56,13 +56,13 @@ export class AppController {
     res.send(session.url);
   }
 
-  @Post('/payment/success')
-  async paymentSuccess(@Res() res: Response) {
+  @Get('/payment/success')
+  paymentSuccess(@Res() res: Response) {
     res.send('<h1>Payment Successfull</h1>');
   }
 
-  @Post('/payment/cancel')
-  async paymentCancel(@Res() res: Response) {
+  @Get('/payment/cancel')
+  paymentCancel(@Res() res: Response) {
     res.send('<h1>Payment Canceled</h1>');
   }
 }

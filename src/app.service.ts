@@ -1,7 +1,6 @@
 import { Injectable, Res } from '@nestjs/common';
-import { Response } from 'express';
 import Stripe from 'stripe';
-import { PaymentDto } from './payment.dto';
+import { AccountDto } from './dtos/account.dto';
 import 'dotenv/config';
 
 @Injectable()
@@ -66,23 +65,14 @@ export class AppService {
     const items = [
       {
         id: 1,
-        name: 'Black T-Shirt',
-        description: 'Its a black t-shirt for test',
+        name: 'Every Padel Åby Arena, GOTHENBURG, SWEDEN',
+        description:
+          "Play padel at Every Padel in Gothenburg, Sweden in one of the world's finest padel facilities. Every Padel's newly opened padel centre in Gothenburg offers a total of 25 top-class padel courts.",
         images: [
-          'https://images.unsplash.com/photo-1571455786673-9d9d6c194f90?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+          'https://www.padelrumors.com/wp-content/uploads/2022/01/everypadel.jpg',
         ],
-        quantity: 1,
-        unitPrice: 80,
-      },
-      {
-        id: 2,
-        name: 'White Shirt',
-        description: 'Its a white shirt for test',
-        images: [
-          'https://images.unsplash.com/photo-1612541122840-bf7071c968a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=496&q=80',
-        ],
-        quantity: 2,
-        unitPrice: 120,
+        quantity: 1, // we may set 1 match
+        unitPrice: 380, // per match
       },
     ];
 
@@ -102,12 +92,12 @@ export class AppService {
         };
       }),
       mode: 'payment',
-      success_url: 'https://localhost:8008/api/v1/stripe/payment/success',
-      cancel_url: 'https://localhost:8008/api/v1/stripe/payment/cancel',
+      success_url: 'http://localhost:8008/api/v1/stripe/payment/success',
+      cancel_url: 'http://localhost:8008/api/v1/stripe/payment/cancel',
       payment_intent_data: {
         application_fee_amount: this.calculateChargeInCents(items),
         transfer_data: {
-          destination: 'acct_1M7MkURkIRrUSIaY',
+          destination: 'acct_1M7ZGND76FV95Zzs',
         },
       },
     });
@@ -136,25 +126,25 @@ export class AppService {
       },
       business_type: 'individual',
       individual: {
-        first_name: 'Lonnie',
-        last_name: 'Parisian',
-        email: 'xyz@gmail.com',
+        first_name: 'Charles',
+        last_name: 'Jerde',
+        email: 'karson87@yahoo.com',
         dob: {
-          day: 16,
-          month: 11,
-          year: 1958,
+          day: 24,
+          month: 6,
+          year: 1953,
         },
         address: {
-          line1: '264 Alicia Trail',
-          city: 'Laupahoehoe',
-          postal_code: '96764',
-          state: 'HI', // see documentation must cause state shorthand
+          line1: '215 Gusikowski Flats',
+          city: 'Jonesboro',
+          postal_code: '76538',
+          state: 'TX', // see documentation must cause state shorthand
           country: 'US',
         },
-        phone: '+1-823-315-2329',
+        phone: '+1-907-677-6064',
         ssn_last_4: '0000',
       },
-      email: 'xyz@gmail.com',
+      email: 'karson87@yahoo.com',
       external_account: {
         object: 'bank_account',
         account_number: '000999999991',
@@ -164,8 +154,8 @@ export class AppService {
       },
       business_profile: {
         mcc: '7997', // see documentation; this code is for country club
-        support_url: 'www.abc.com',
-        url: 'www.abc.com',
+        support_url: 'www.xyz.com',
+        url: 'www.xyz.com',
       },
       tos_acceptance: {
         date: 1609798905,
